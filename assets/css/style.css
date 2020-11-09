@@ -1,0 +1,28 @@
+:root {
+    --primary-color: #02f9df;
+    --secondary-color: #ff7cce;
+
+}
+
+
+.bg-pink {
+    background-color: var(--secondary-color);
+}
+
+.bg-goal {
+    background-color: var(--primary-color);
+}
+
+.btn {
+    width: 150px;
+}
+
+#goals-container {
+    border-left: solid 4px var(--secondary-color);
+    border-right: solid 4px var(--secondary-color);
+    box-shadow: inset 0 0 8px #888;;
+}
+
+.goal {
+    box-shadow: 0 0 5px #888;
+}
