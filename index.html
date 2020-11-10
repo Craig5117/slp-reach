@@ -19,7 +19,7 @@
                 </select>
             </div>
             <div class= "d-flex flex-wrap flex-column pr-3">
-                <button class="btn bg-goal text-dark font-weight-bold" id="newGoalBtn">New Goal</button>
+                <button id="newGoalBtn" class="btn bg-goal text-dark font-weight-bold" data-toggle="modal" data-target="#goal-form-modal">New Goal</button>
                 <select name="goal-select" id="goal-select">
                     <option value="" disabled selected>Goal</option>
                     <option value="Yes/No">Yes No Questions</option>
@@ -34,7 +34,7 @@
         <div class="col" id="goals-wrapper">
             
             <!--Goals displayed here-->
-            <div class="col bg-light d-flex justify-content-between flex-wrap" id="goals-container">
+            <div class="col bg-light d-flex justify-content-between flex-wrap border-top-0" id="goals-container">
                 
                     <div class="goal col-11 col-md-5 card my-3 bg-goal p-0">
                         <h2 class="p-2">Yes/No</h2>
@@ -72,56 +72,141 @@
                     </div>
                     <div class="goal col-11 col-md-5 card my-3 bg-goal p-0">
                         <h2 class="p-2">Yes/No</h2>
-                        <div class="p-3 bg-white mx-1 mb-1">
+                        <div class="p-3 bg-white mx-1 mb-1 overflow-auto">
                             <h3>Goal description:</h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            <h4>Date:</h4>
-                            <p>MM/DD/YYYY</p>
-                            <h5>Score</h5>
-                            <div class="d-flex justify-content-between">
-                                <p class="border-bottom">5/10</p> <p class="border-bottom">50%</p>
-                            </div>
+                            <button class="btn bg-goal mb-3">New Evaluation</button>
+                            <div class="list-group d-flex">
+                                <div class="goal-eval list-group-item bg-goal">
+                                    <p>MM/DD/YYYY</p>
+                                    <div class="d-flex justify-content-between">
+                                        <p class="border-bottom">5/10</p> <p class="border-bottom">50%</p>
+                                    </div>
+                                </div>
+                                <div class="goal-eval list-group-item bg-goal">
+                                    <p>MM/DD/YYYY</p>
+                                    <div class="d-flex justify-content-between">
+                                        <p class="border-bottom">5/10</p> <p class="border-bottom">50%</p>
+                                    </div>
+                                </div>
+                                <div class="goal-eval list-group-item bg-goal">
+                                    <p>MM/DD/YYYY</p>
+                                    <div class="d-flex justify-content-between">
+                                        <p class="border-bottom">5/10</p> <p class="border-bottom">50%</p>
+                                    </div>
+                                </div>
+                                <div class="goal-eval list-group-item bg-goal">
+                                    <p>MM/DD/YYYY</p>
+                                    <div class="d-flex justify-content-between">
+                                        <p class="border-bottom">5/10</p> <p class="border-bottom">50%</p>
+                                    </div>
+                                </div>
+                            </div>                            
                         </div>
                     </div>
                     <div class="goal col-11 col-md-5 card my-3 bg-goal p-0">
                         <h2 class="p-2">Yes/No</h2>
-                        <div class="p-3 bg-white mx-1 mb-1">
+                        <div class="p-3 bg-white mx-1 mb-1 overflow-auto">
                             <h3>Goal description:</h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            <h4>Date:</h4>
-                            <p>MM/DD/YYYY</p>
-                            <h5>Score</h5>
-                            <div class="d-flex justify-content-between">
-                                <p class="border-bottom">5/10</p> <p class="border-bottom">50%</p>
-                            </div>
+                            <button class="btn bg-goal mb-3">New Evaluation</button>
+                            <div class="list-group d-flex">
+                                <div class="goal-eval list-group-item bg-goal">
+                                    <p>MM/DD/YYYY</p>
+                                    <div class="d-flex justify-content-between">
+                                        <p class="border-bottom">5/10</p> <p class="border-bottom">50%</p>
+                                    </div>
+                                </div>
+                                <div class="goal-eval list-group-item bg-goal">
+                                    <p>MM/DD/YYYY</p>
+                                    <div class="d-flex justify-content-between">
+                                        <p class="border-bottom">5/10</p> <p class="border-bottom">50%</p>
+                                    </div>
+                                </div>
+                                <div class="goal-eval list-group-item bg-goal">
+                                    <p>MM/DD/YYYY</p>
+                                    <div class="d-flex justify-content-between">
+                                        <p class="border-bottom">5/10</p> <p class="border-bottom">50%</p>
+                                    </div>
+                                </div>
+                                <div class="goal-eval list-group-item bg-goal">
+                                    <p>MM/DD/YYYY</p>
+                                    <div class="d-flex justify-content-between">
+                                        <p class="border-bottom">5/10</p> <p class="border-bottom">50%</p>
+                                    </div>
+                                </div>
+                            </div>                            
                         </div>
                     </div>
                     <div class="goal col-11 col-md-5 card my-3 bg-goal p-0">
                         <h2 class="p-2">Yes/No</h2>
-                        <div class="p-3 bg-white mx-1 mb-1">
+                        <div class="p-3 bg-white mx-1 mb-1 overflow-auto">
                             <h3>Goal description:</h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            <h4>Date:</h4>
-                            <p>MM/DD/YYYY</p>
-                            <h5>Score</h5>
-                            <div class="d-flex justify-content-between">
-                                <p class="border-bottom">5/10</p> <p class="border-bottom">50%</p>
-                            </div>
+                            <button class="btn bg-goal mb-3">New Evaluation</button>
+                            <div class="list-group d-flex">
+                                <div class="goal-eval list-group-item bg-goal">
+                                    <p>MM/DD/YYYY</p>
+                                    <div class="d-flex justify-content-between">
+                                        <p class="border-bottom">5/10</p> <p class="border-bottom">50%</p>
+                                    </div>
+                                </div>
+                                <div class="goal-eval list-group-item bg-goal">
+                                    <p>MM/DD/YYYY</p>
+                                    <div class="d-flex justify-content-between">
+                                        <p class="border-bottom">5/10</p> <p class="border-bottom">50%</p>
+                                    </div>
+                                </div>
+                                <div class="goal-eval list-group-item bg-goal">
+                                    <p>MM/DD/YYYY</p>
+                                    <div class="d-flex justify-content-between">
+                                        <p class="border-bottom">5/10</p> <p class="border-bottom">50%</p>
+                                    </div>
+                                </div>
+                                <div class="goal-eval list-group-item bg-goal">
+                                    <p>MM/DD/YYYY</p>
+                                    <div class="d-flex justify-content-between">
+                                        <p class="border-bottom">5/10</p> <p class="border-bottom">50%</p>
+                                    </div>
+                                </div>
+                            </div>                            
                         </div>
-                    </div>                
+                    </div>
                     <div class="goal col-11 col-md-5 card my-3 bg-goal p-0">
                         <h2 class="p-2">Yes/No</h2>
-                        <div class="p-3 bg-white mx-1 mb-1">
+                        <div class="p-3 bg-white mx-1 mb-1 overflow-auto">
                             <h3>Goal description:</h3>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            <h4>Date:</h4>
-                            <p>MM/DD/YYYY</p>
-                            <h5>Score</h5>
-                            <div class="d-flex justify-content-between">
-                                <p class="border-bottom">5/10</p> <p class="border-bottom">50%</p>
-                            </div>
+                            <button class="btn bg-goal mb-3">New Evaluation</button>
+                            <div class="list-group d-flex">
+                                <div class="goal-eval list-group-item bg-goal">
+                                    <p>MM/DD/YYYY</p>
+                                    <div class="d-flex justify-content-between">
+                                        <p class="border-bottom">5/10</p> <p class="border-bottom">50%</p>
+                                    </div>
+                                </div>
+                                <div class="goal-eval list-group-item bg-goal">
+                                    <p>MM/DD/YYYY</p>
+                                    <div class="d-flex justify-content-between">
+                                        <p class="border-bottom">5/10</p> <p class="border-bottom">50%</p>
+                                    </div>
+                                </div>
+                                <div class="goal-eval list-group-item bg-goal">
+                                    <p>MM/DD/YYYY</p>
+                                    <div class="d-flex justify-content-between">
+                                        <p class="border-bottom">5/10</p> <p class="border-bottom">50%</p>
+                                    </div>
+                                </div>
+                                <div class="goal-eval list-group-item bg-goal">
+                                    <p>MM/DD/YYYY</p>
+                                    <div class="d-flex justify-content-between">
+                                        <p class="border-bottom">5/10</p> <p class="border-bottom">50%</p>
+                                    </div>
+                                </div>
+                            </div>                            
                         </div>
-                    </div>                
+                    </div>
+                    
             </div>
         </div>
         <!-- Modal Student-->
@@ -149,36 +234,39 @@
                 </div>
             </div>
         </div>
-                <!-- Modal Goal
-        <div class="modal fade" id="goal-form-modal" tabindex="-1" role="dialog" aria-labelledby="goal-form-modal"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="goal-form-modal">New Goal</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                <div class="form-group">
-                    <label for="modalGoalDescription">Goal description</label>
-                    <textarea id="modalGoalDescription" rows="3" class="form-control"></textarea>
+        <!-- Modal Goal -->
+        <div class="modal fade" id="goal-form-modal" tabindex="-1" role="dialog" aria-labelledby="goal-form-modal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="goal-form-modal">New Goal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-                <div class="form-group">
-                    <label for="modalDate">Date</label>
-                    <input type="text" class="form-control" id="modalDate" placeholder="mm/dd/yyyy" autocomplete="off" />
+                <div class="modal-body">
+                    <form>
+                    <div class="form-group">
+                        <label for="modalGoalTitle">Goal</label>
+                        <input type="text" class="form-control" id="modalGoalTitle" placeholder="Goal Name" autocomplete="off" />
+                    </div>
+                    <div class="form-group">
+                        <label for="modalGoalDescription">Goal description</label>
+                        <textarea id="modalGoalDescription" rows="3" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="modalDate">Date</label>
+                        <input type="text" class="form-control" id="modalDate" placeholder="mm/dd/yyyy" autocomplete="off" />
+                    </div>
+                    </form>
                 </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-save">Save Task</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-save">Save Task</button>
+                </div>
+                </div>
             </div>
         </div>
-        </div> -->
     </main>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

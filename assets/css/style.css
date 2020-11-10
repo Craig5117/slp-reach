@@ -20,10 +20,10 @@
 
 
 #goals-container {
-    border-left: solid 4px var(--secondary-color);
-    border-right: solid 4px var(--secondary-color);
+    border: solid 4px var(--secondary-color);
     box-shadow: inset 0 0 8px #888;
-    min-height: 85vh;
+    height: 70vh;
+    overflow: auto;
 }
 
 #goals-bar {
@@ -41,4 +41,16 @@
     margin-bottom: 10px;
 }
 
+
+@media screen and (max-width: 768px) {
+    #goals-container {
+        height: 79vh;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    #goals-container {
+        height: 67vh;
+    }
+}
 

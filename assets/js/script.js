@@ -39,7 +39,17 @@ $("#student-form-modal .btn-save").on("click", function(){
 $("#student-name").on("change", function(){
     var currentStudent = $("#student-name option:selected").text();
     displayStudentGoals(currentStudent);
-})
+});
+
+$("#goal-form-modal").on("show.bs.modal", function() {
+    // clear values
+    $("#modalGoalTitle, #modalGoalDescription, modalDate").val("");
+});
+
+$("#goal-form-modal").on("shown.bs.modal", function() {
+    // highlight textarea
+    $("#modalGoalTitle").trigger("focus");
+});
 
 // // $("#newStudentBtn").on("click", newStudentName);
 // $("#newGoalBtn").on("click", newGoal);
