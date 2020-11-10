@@ -11,30 +11,32 @@ var studentGoalUpdate = function () {
         console.log("Goal name is: " + goalName);
         $(".goal-eval").each(function(){
             var evalDate = $(this).children("p").text();
-            console.log(evalDate);
+            console.log("EvalDate is: " + evalDate);
             var scoreContainerEl = $(this).children("div");
-            var evalScore = scoreContainerEl.children("p").text();
-            // var evalScore = $(this).find(".score").text();
+            var scoreContainerChildren = scoreContainerEl.children();           
+            var evalScore = scoreContainerChildren[0].textContent;
             console.log("EvalScore is: " + evalScore);
-            var scorePercent = $(this).children(".scorePercent").text();
+            var scorePercent = scoreContainerChildren[1].textContent;
             console.log("ScorePercent is: " + scorePercent);
+            console.log(evalDate, evalScore, scorePercent);
             var evalObj = {date: evalDate, score: evalScore, percent: scorePercent};
-            console.log("This is the evalObj: " + evalObj);
+            console.log(evalObj);
             newEvalArray.push(evalObj);
-            console.log("This is the newEvalArray" + newEvalArray);
-        })
+            console.log(newEvalArray);
+        });
+    
         var goalDataObj = {goal: goalName, eval: newEvalArray}
         currentStudentArray.push(goalDataObj);
-        console.log("This is the currentStudentArray: " + currentStudentArray);
-    })
+        console.log(currentStudentArray);
+    });
     studUpdateArrayData = {student: currentStudent, data: currentStudentArray}
     studentsGoalsArray.push(studUpdateArrayData);
-    console.log("This is the updated studentGoalsArray: " + studentsGoalsArray);
-}
+    console.log(studentsGoalsArray);
+};
 var displayStudentGoals = function(currentStudent) {
-    $(".goal").each(function(){
-        $(this).remove();
-    })
+    // $(".goal").each(function(){
+    //     $(this).remove();
+    // })
 }
 
 $("#student-form-modal").on("show.bs.modal", function() {
