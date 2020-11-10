@@ -9,7 +9,7 @@ var studentGoalUpdate = function () {
         var newEvalArray = [];
         var goalName = $(this).children("h2").text();
         console.log("Goal name is: " + goalName);
-        $(".goal-eval").each(function(){
+        $(".goal-eval", thisgit).each(function(){
             var evalDate = $(this).children("p").text();
             console.log("EvalDate is: " + evalDate);
             var scoreContainerEl = $(this).children("div");
@@ -40,12 +40,10 @@ var displayStudentGoals = function(currentStudent) {
 }
 
 $("#student-form-modal").on("show.bs.modal", function() {
-    // clear values
     $("#nameEntry").val("");
 });
 
 $("#student-form-modal").on("shown.bs.modal", function() {
-    // highlight textarea
     $("#nameEntry").trigger("focus");
 });
 
@@ -67,12 +65,10 @@ $("#student-name").on("change", function(){
 });
 
 $("#goal-form-modal").on("show.bs.modal", function() {
-    // clear values
     $("#modalGoalTitle, #modalGoalDescription").val("");
 });
 
 $("#goal-form-modal").on("shown.bs.modal", function() {
-    // highlight textarea
     $("#modalGoalTitle").trigger("focus");
 });
 
@@ -82,6 +78,3 @@ $("#goal-select").on("change", function(){
 });
 
 $("#newEvalBtn").on("click", studentGoalUpdate);
-
-// // $("#newStudentBtn").on("click", newStudentName);
-// $("#newGoalBtn").on("click", newGoal);
