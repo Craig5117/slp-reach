@@ -1,37 +1,52 @@
 var currentStudent = "";
-var studentsArray = [];
-var studentsGoalsArray = []
-var goalsArray = [{goal: "Yes/No Questions", description: "This is a description of Yes/No questions."}, {goal: "When Questions", description: "This is a description of When questions."}, {goal: "Categories", description: "This is a description of categories."}];
- 
+const studentsArray = [];
+const studentsGoalsArray = []
+const goalsArray = [{goal: "Yes/No Questions", description: "This is a description of Yes/No questions."}, {goal: "When Questions", description: "This is a description of When questions."}, {goal: "Categories", description: "This is a description of categories."}];
+
+
 var studentGoalUpdate = function () {
-    var currentStudentArray = [];
-    $(".goal").each(function(){
-        var newEvalArray = [];
-        var goalName = $(this).children("h2").text();
-        console.log("Goal name is: " + goalName);
-        $(".goal-eval", this).each(function(){
-            var evalDate = $(this).children("p").text();
-            console.log("EvalDate is: " + evalDate);
-            var scoreContainerEl = $(this).children("div");
-            var scoreContainerChildren = scoreContainerEl.children();           
-            var evalScore = scoreContainerChildren[0].textContent;
-            console.log("EvalScore is: " + evalScore);
-            var scorePercent = scoreContainerChildren[1].textContent;
-            console.log("ScorePercent is: " + scorePercent);
-            console.log(evalDate, evalScore, scorePercent);
-            var evalObj = {date: evalDate, score: evalScore, percent: scorePercent};
-            console.log(evalObj);
-            newEvalArray.push(evalObj);
-            console.log(newEvalArray);
+    if (currentStudent === "") {
+        alert("Please select a student.")
+        return;
+    } 
+    else {
+        for (let i = 0; i < studentsGoalsArray.length; ++i) {
+            if (studentsGoalsArray[i].student.includes(currentStudent)) {
+                studentsGoalsArray.splice(i, 1);
+            }
+            else {
+                console.log("No")
+            }
+        }
+        var currentStudentArray = [];
+        $(".goal").each(function(){
+            var newEvalArray = [];
+            var goalName = $(this).children("h2").text();
+            // console.log("Goal name is: " + goalName);
+            $(".goal-eval", this).each(function(){
+                var evalDate = $(this).children("p").text();
+                // console.log("EvalDate is: " + evalDate);
+                var scoreContainerEl = $(this).children("div");
+                var scoreContainerChildren = scoreContainerEl.children();           
+                var evalScore = scoreContainerChildren[0].textContent;
+                // console.log("EvalScore is: " + evalScore);
+                var scorePercent = scoreContainerChildren[1].textContent;
+                // console.log("ScorePercent is: " + scorePercent);
+                // console.log(evalDate, evalScore, scorePercent);
+                var evalObj = {date: evalDate, score: evalScore, percent: scorePercent};
+                // console.log(evalObj);
+                newEvalArray.push(evalObj);
+                // console.log(newEvalArray);
+            });
+        
+            var goalDataObj = {goal: goalName, eval: newEvalArray}
+            currentStudentArray.push(goalDataObj);
+            // console.log(currentStudentArray);
         });
-    
-        var goalDataObj = {goal: goalName, eval: newEvalArray}
-        currentStudentArray.push(goalDataObj);
-        console.log(currentStudentArray);
-    });
-    studUpdateArrayData = {student: currentStudent, data: currentStudentArray}
-    studentsGoalsArray.push(studUpdateArrayData);
-    console.log(studentsGoalsArray);
+        studUpdateArrayData = {student: currentStudent, data: currentStudentArray}
+        studentsGoalsArray.push(studUpdateArrayData);
+        console.log(studentsGoalsArray);
+    }
 };
 var displayStudentGoals = function(currentStudent) {
     // $(".goal").each(function(){
@@ -48,12 +63,16 @@ $("#student-form-modal").on("shown.bs.modal", function() {
 });
 
 $("#student-form-modal .btn-save").on("click", function(){
-    var studentName = $("#nameEntry").val().trim();
+    let studentName = $("#nameEntry").val().trim();
     if (studentName) {
         var studentOptionEl = $("<option>").attr("value", studentName);
         studentOptionEl.text(studentName);
+        studentsArray.push(studentName)
         $("#student-name").append(studentOptionEl);
         $("#student-form-modal").modal("hide");
+    }
+    else {
+        alert("Please enter a name.")
     }
    // Save name to array code here
 
@@ -73,18 +92,21 @@ $("#goal-form-modal").on("shown.bs.modal", function() {
 });
 
 $("#goal-form-modal .btn-save").on("click", function(){
-    var goalName = $("#modalGoalTitle").val().trim();
-    if (goalName) {
-        let newGoalDesc = $("#modalGoalDescription").val().trim();
+    let goalName = $("#modalGoalTitle").val().trim();
+    let goalDesc = $("#modalGoalDescription").val().trim();
+    if (goalName && goalDesc) {
         let newGoal = {
-            goal: goalName, description: newGoalDesc
+            goal: goalName, description: goalDesc
         }
         goalsArray.push(newGoal);
-        console.log(goalsArray);
+        // console.log(goalsArray);
         var goalOptionEl = $("<option>").attr("value", goalName);
         goalOptionEl.text(goalName);
         $("#goal-select").append(goalOptionEl);
         $("#goal-form-modal").modal("hide");
+    }
+    else {
+        alert("Please enter a goal name and description.")
     }
 });
 
