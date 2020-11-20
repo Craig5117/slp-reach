@@ -101,15 +101,21 @@ $("#goal-form-modal .btn-save").on("click", function(){
     let goalName = $("#modalGoalTitle").val().trim();
     let goalDesc = $("#modalGoalDescription").val().trim();
     if (goalName && goalDesc) {
-        let newGoal = {
-            goal: goalName, description: goalDesc
+        let repeated = goalsArray.find(repeated => repeated.goal === goalName);
+        if (repeated) {
+            return alert("You have already entered a goal with that name.")
         }
-        goalsArray.push(newGoal);
-        // console.log(goalsArray);
-        var goalOptionEl = $("<option>").attr("value", goalName);
-        goalOptionEl.text(goalName);
-        $("#goal-select").append(goalOptionEl);
-        $("#goal-form-modal").modal("hide");
+        else {
+            let newGoal = {
+                goal: goalName, description: goalDesc
+            }
+            goalsArray.push(newGoal);
+            // console.log(goalsArray);
+            var goalOptionEl = $("<option>").attr("value", goalName);
+            goalOptionEl.text(goalName);
+            $("#goal-select").append(goalOptionEl);
+            $("#goal-form-modal").modal("hide");
+        }
     }
     else {
         alert("Please enter a goal name and description.")
