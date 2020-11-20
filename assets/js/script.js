@@ -1,7 +1,7 @@
 var currentStudent = "";
 var studentsArray = [];
 var studentsGoalsArray = []
-var goalsArray = [{goal: "Yes/No Questions", description: "This is a description of Yes/No questions."}, {goal: "When Questions", description: "This is a description of When questions."}];
+var goalsArray = [{goal: "Yes/No Questions", description: "This is a description of Yes/No questions."}, {goal: "When Questions", description: "This is a description of When questions."}, {goal: "Categories", description: "This is a description of categories."}];
  
 var studentGoalUpdate = function () {
     var currentStudentArray = [];
@@ -9,7 +9,7 @@ var studentGoalUpdate = function () {
         var newEvalArray = [];
         var goalName = $(this).children("h2").text();
         console.log("Goal name is: " + goalName);
-        $(".goal-eval", thisgit).each(function(){
+        $(".goal-eval", this).each(function(){
             var evalDate = $(this).children("p").text();
             console.log("EvalDate is: " + evalDate);
             var scoreContainerEl = $(this).children("div");
@@ -70,6 +70,22 @@ $("#goal-form-modal").on("show.bs.modal", function() {
 
 $("#goal-form-modal").on("shown.bs.modal", function() {
     $("#modalGoalTitle").trigger("focus");
+});
+
+$("#goal-form-modal .btn-save").on("click", function(){
+    var goalName = $("#modalGoalTitle").val().trim();
+    if (goalName) {
+        let newGoalDesc = $("#modalGoalDescription").val().trim();
+        let newGoal = {
+            goal: goalName, description: newGoalDesc
+        }
+        goalsArray.push(newGoal);
+        console.log(goalsArray);
+        var goalOptionEl = $("<option>").attr("value", goalName);
+        goalOptionEl.text(goalName);
+        $("#goal-select").append(goalOptionEl);
+        $("#goal-form-modal").modal("hide");
+    }
 });
 
 $("#goal-select").on("change", function(){
