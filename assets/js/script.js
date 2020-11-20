@@ -65,11 +65,17 @@ $("#student-form-modal").on("shown.bs.modal", function() {
 $("#student-form-modal .btn-save").on("click", function(){
     let studentName = $("#nameEntry").val().trim();
     if (studentName) {
+        if (studentsArray.includes(studentName)) {
+            alert("Student already exists");
+            return;
+        }
+        else {
         var studentOptionEl = $("<option>").attr("value", studentName);
         studentOptionEl.text(studentName);
         studentsArray.push(studentName)
         $("#student-name").append(studentOptionEl);
         $("#student-form-modal").modal("hide");
+        }
     }
     else {
         alert("Please enter a name.")
