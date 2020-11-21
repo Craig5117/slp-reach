@@ -1,7 +1,7 @@
 var currentStudent = "";
 const studentsArray = [];
 const studentsGoalsArray = []
-const goalsArray = [{goal: "Yes/No Questions", description: "This is a description of Yes/No questions."}, {goal: "When Questions", description: "This is a description of When questions."}, {goal: "Categories", description: "This is a description of categories."}];
+const goalsArray = [{goal: "Yes No Questions", description: "This is a description of Yes/No questions."}, {goal: "When Questions", description: "This is a description of When questions."}, {goal: "Categories", description: "This is a description of categories."}];
 
 
 var studentGoalUpdate = function () {
@@ -110,7 +110,7 @@ $("#goal-form-modal .btn-save").on("click", function(){
                 goal: goalName, description: goalDesc
             }
             goalsArray.push(newGoal);
-            // console.log(goalsArray);
+            console.log(goalsArray);
             var goalOptionEl = $("<option>").attr("value", goalName);
             goalOptionEl.text(goalName);
             $("#goal-select").append(goalOptionEl);
@@ -118,13 +118,22 @@ $("#goal-form-modal .btn-save").on("click", function(){
         }
     }
     else {
-        alert("Please enter a goal name and description.")
+        alert("Please enter a goal name and description.");
     }
 });
 
-$("#goal-select").on("change", function(){
-    currentGoal = $("#goal-select option:selected").text();
+var addGoalToStudent = function (currentGoal) {
+    for (let i = 0; i < goalsArray.length; ++i) {
+        if (goalsArray[i].goal === currentGoal) {
+            console.log(i, goalsArray[i].goal, goalsArray[i].description);
+        }
+    }
+    
+}
 
+$("#goal-select").on("change", function(){
+    const currentGoal = $("#goal-select option:selected").text();
+    addGoalToStudent(currentGoal);
 });
 
 $("#newEvalBtn").on("click", studentGoalUpdate);

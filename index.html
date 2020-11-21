@@ -22,7 +22,7 @@
                 <button id="newGoalBtn" class="btn bg-goal text-dark font-weight-bold" data-toggle="modal" data-target="#goal-form-modal">New Goal</button>
                 <select name="goal-select" id="goal-select">
                     <option value="" disabled selected>Goal</option>
-                    <option value="Yes/No">Yes No Questions</option>
+                    <option value="Yes No Questions">Yes No Questions</option>
                     <option value="When">When Questions</option>
                     <option value="Categories">Categories</option>
                 </select>
@@ -119,16 +119,16 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <div id="studentForm">
                             <div class="form-group">
                                 <label for="nameEntry">Student Name</label>
                                 <input type="text" class="form-control" id="nameEntry" placeholder="New Student Name" autocomplete="off" />
                             </div>
-                        </form>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-save">Save New Student</button>
+                        <button type="submit" class="btn btn-save">Save New Student</button>
                     </div>
                 </div>
             </div>
@@ -144,20 +144,20 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
-                    <div class="form-group">
-                        <label for="modalGoalTitle">Goal</label>
-                        <input type="text" class="form-control" id="modalGoalTitle" placeholder="Goal Name" autocomplete="off" />
-                    </div>
-                    <div class="form-group">
-                        <label for="modalGoalDescription">Goal description</label>
-                        <textarea id="modalGoalDescription" rows="3" class="form-control"></textarea>
-                    </div>
-                    <!-- <div class="form-group">
-                        <label for="modalDate">Date</label>
-                        <input type="text" class="form-control" id="modalDate" placeholder="mm/dd/yyyy" autocomplete="off" />
-                    </div> -->
-                    </form>
+                    <div id="goalForm">
+                        <div class="form-group">
+                            <label for="modalGoalTitle">Goal</label>
+                            <input type="text" class="form-control" id="modalGoalTitle" placeholder="Goal Name" autocomplete="off" />
+                        </div>
+                        <div class="form-group">
+                            <label for="modalGoalDescription">Goal description</label>
+                            <textarea id="modalGoalDescription" rows="3" class="form-control"></textarea>
+                        </div>
+                        <!-- <div class="form-group">
+                            <label for="modalDate">Date</label>
+                            <input type="text" class="form-control" id="modalDate" placeholder="mm/dd/yyyy" autocomplete="off" />
+                        </div> -->
+                        </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
