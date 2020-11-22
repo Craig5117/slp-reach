@@ -1,6 +1,6 @@
 var currentStudent = "";
 const studentsArray = [];
-const studentsGoalsArray = []
+var studentsGoalsArray = []
 const goalsArray = [{goal: "Yes No Questions", description: "This is a description of Yes/No questions."}, {goal: "When Questions", description: "This is a description of When questions."}, {goal: "Categories", description: "This is a description of categories."}];
 
 
@@ -43,15 +43,31 @@ var studentGoalUpdate = function () {
             currentStudentArray.push(goalDataObj);
             // console.log(currentStudentArray);
         });
-        studUpdateArrayData = {student: currentStudent, data: currentStudentArray}
+        studUpdateArrayData = {student: currentStudent, goals: currentStudentArray}
         studentsGoalsArray.push(studUpdateArrayData);
         console.log(studentsGoalsArray);
     }
 };
+
+// currently working here, can't access current student goals inside second for loop, a logs, but current student goals won't log until after the loop is complete
 var displayStudentGoals = function(currentStudent) {
-    // $(".goal").each(function(){
-    //     $(this).remove();
-    // })
+    $(".goal").each(function(){
+        $(this).remove();
+    })
+        console.log(studentsGoalsArray);
+    for (let i = 0; i < studentsGoalsArray.length; ++i) {
+        // console.log(i);
+        if (studentsGoalsArray[i].student === currentStudent) {
+            let currentStudentGoals = studentsGoalsArray[i].goals;
+            for (let a = 0; a < currentStudentGoals; ++a) {
+                console.log(currentStudentGoals);
+                // let currentGoal = currentStudentGoals[a].goal;
+                // console.log(currentGoal);
+            }
+            console.log("Current Student goals are: ", currentStudentGoals);
+        }
+    }
+    
 }
 
 $("#student-form-modal").on("show.bs.modal", function() {
@@ -86,6 +102,7 @@ $("#student-form-modal .btn-save").on("click", function(){
 
 $("#student-name").on("change", function(){
     currentStudent = $("#student-name option:selected").text();
+    console.log(currentStudent);
     displayStudentGoals(currentStudent);
 });
 
@@ -123,17 +140,40 @@ $("#goal-form-modal .btn-save").on("click", function(){
 });
 
 var addGoalToStudent = function (currentGoal) {
-    for (let i = 0; i < goalsArray.length; ++i) {
-        if (goalsArray[i].goal === currentGoal) {
-            console.log(i, goalsArray[i].goal, goalsArray[i].description);
+    if (currentStudent === "") {
+        $("#goal-select").val("");
+        alert("Please select a student.")
+        return;
+    } 
+    else {
+        // error handling for goal already on page will go here (use forEach to check the divs on the page for the goal name)
+        for (let i = 0; i < goalsArray.length; ++i) {
+            if (goalsArray[i].goal === currentGoal) {
+                const goalsContainerEl = $("#goals-container");
+                let goalDivEl = $("<div>").attr("class", "goal col-11 col-md-5 card my-3 bg-goal p-0");
+                let goalTitleEl = $("<h2>").attr("class", "p-2");
+                goalTitleEl.text(goalsArray[i].goal);
+                let goalInfoEl = $("<div>").attr("class", "p-3 bg-white mx-1 mb-1 overflow-auto");
+                let goalDescEl = $("<p>").text(goalsArray[i].description)
+                let takeDataBtn = $("<button>").attr("class", "takeDataBtn btn bg-goal mb-3");
+                takeDataBtn.text("Take Data");
+                let dataListEl = $("<div>").attr("class", "dataList list-group d-flex")
+                goalInfoEl.append(goalDescEl);
+                goalInfoEl.append(takeDataBtn);
+                goalInfoEl.append(dataListEl);
+                goalDivEl.append(goalTitleEl);
+                goalDivEl.append(goalInfoEl);
+                goalsContainerEl.append(goalDivEl);
+                $("#goal-select").val("");
+                studentGoalUpdate();
+            }
         }
     }
-    
 }
 
 $("#goal-select").on("change", function(){
-    const currentGoal = $("#goal-select option:selected").text();
+    let currentGoal = $("#goal-select option:selected").text();
     addGoalToStudent(currentGoal);
 });
 
-$("#newEvalBtn").on("click", studentGoalUpdate);
+$("#goals-container").on("click", ".takeDataBtn", studentGoalUpdate);
