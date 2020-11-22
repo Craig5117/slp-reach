@@ -60,7 +60,7 @@ var addSessionDataToGoal = function(sessionDate, trialScore, scorePercent) {
     let trialScoreEl = $("<p>").text(trialScore);
     trialScoreEl.attr("class", "score border-bottom");
     
-    let scorePercentEl = $("<p>").text(`${scorePercent}%`);
+    let scorePercentEl = $("<p>").text(scorePercent);
     scorePercentEl.attr("scorePercent border-bottom");
     scoreBoxEl.append(trialScoreEl, scorePercentEl);
     newSessionEl.append(sessionDateHeaderEl, sessionDateEl, trialsHeaderEl, scoreBoxEl);
@@ -222,7 +222,7 @@ $("#data-form-modal .btn-save").on("click", function(){
     let numberOfTrials = $("#numberOfTrials").val().trim();
     let correct = $("#correct").val().trim();
     let trialScore = `${correct}/${numberOfTrials}`;
-    let scorePercent = (parseInt(correct)/parseInt(numberOfTrials)) * 100;
+    let scorePercent = (parseInt(correct)/parseInt(numberOfTrials)) * 100 + "%";
     if (sessionDate && numberOfTrials && correct) {
         addSessionDataToGoal(sessionDate, trialScore, scorePercent);   
         $("#data-form-modal").modal("hide");
