@@ -49,22 +49,27 @@ var studentGoalUpdate = function () {
     }
 };
 
-// currently working here, can't access current student goals inside second for loop, a logs, but current student goals won't log until after the loop is complete
+// currently working here, goals print to page but they duplicate. It has something to do with the update function that is called by the addGoalToStudent function.
 var displayStudentGoals = function(currentStudent) {
+    debugger;
     $(".goal").each(function(){
         $(this).remove();
     })
+    // $("#goals-container").empty();
         console.log(studentsGoalsArray);
     for (let i = 0; i < studentsGoalsArray.length; ++i) {
         // console.log(i);
         if (studentsGoalsArray[i].student === currentStudent) {
-            let currentStudentGoals = studentsGoalsArray[i].goals;
-            for (let a = 0; a < currentStudentGoals; ++a) {
-                console.log(currentStudentGoals);
+            // let currentStudentGoals = studentsGoalsArray[i].goals;
+            studentsGoalsArray[i].goals.forEach(function(currentGoal) {
+                addGoalToStudent(currentGoal.goal);
+            })
+            // for (let a = 0; a < currentStudentGoals; ++a) {
+            //     console.log(currentStudentGoals);
                 // let currentGoal = currentStudentGoals[a].goal;
                 // console.log(currentGoal);
-            }
-            console.log("Current Student goals are: ", currentStudentGoals);
+            
+            // console.log("Current Student goals are: ", currentStudentGoals);
         }
     }
     
@@ -165,7 +170,7 @@ var addGoalToStudent = function (currentGoal) {
                 goalDivEl.append(goalInfoEl);
                 goalsContainerEl.append(goalDivEl);
                 $("#goal-select").val("");
-                studentGoalUpdate();
+                // studentGoalUpdate();
             }
         }
     }

@@ -40,7 +40,7 @@
                     <h2 class="p-2">Yes No Questions</h2>
                     <div class="p-3 bg-white mx-1 mb-1 overflow-auto">
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        <button class="takeDataBtn btn bg-goal mb-3">Take Data</button>
+                        <button class="takeDataBtn btn bg-goal mb-3" data-toggle="modal" data-target="#data-form-modal">Take Data</button>
                         <div class="dataList list-group d-flex">
                             <div class="goal-eval list-group-item bg-goal">
                                 <p class="evalDate">10/15/2020</p>
@@ -135,32 +135,65 @@
         <div class="modal fade" id="goal-form-modal" tabindex="-1" role="dialog" aria-labelledby="goal-form-modal" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="goal-form-modal">New Goal</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div id="goalForm">
-                        <div class="form-group">
-                            <label for="modalGoalTitle">Goal</label>
-                            <input type="text" class="form-control" id="modalGoalTitle" placeholder="Goal Name" autocomplete="off" />
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="goal-form-modal">New Goal</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="goalForm">
+                            <div class="form-group">
+                                <label for="modalGoalTitle">Goal</label>
+                                <input type="text" class="form-control" id="modalGoalTitle" placeholder="Goal Name" autocomplete="off" />
+                            </div>
+                            <div class="form-group">
+                                <label for="modalGoalDescription">Goal description</label>
+                                <textarea id="modalGoalDescription" rows="3" class="form-control"></textarea>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label for="modalDate">Date</label>
+                                <input type="text" class="form-control" id="modalDate" placeholder="mm/dd/yyyy" autocomplete="off" />
+                            </div> -->
                         </div>
-                        <div class="form-group">
-                            <label for="modalGoalDescription">Goal description</label>
-                            <textarea id="modalGoalDescription" rows="3" class="form-control"></textarea>
-                        </div>
-                        <!-- <div class="form-group">
-                            <label for="modalDate">Date</label>
-                            <input type="text" class="form-control" id="modalDate" placeholder="mm/dd/yyyy" autocomplete="off" />
-                        </div> -->
-                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-save">Save New Goal</button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-save">Save New Goal</button>
-                </div>
+            </div>
+        </div>
+        <!-- Modal Take Data-->
+        <div class="modal fade" id="data-form-modal" tabindex="-1" role="dialog" aria-labelledby="data-form-modal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="data-form-modal">New Data</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="dataForm">
+                            <div class="form-group">
+                                <label for="numberOfItems">Number of Items</label>
+                                <input type="text" class="form-control" id="numberOfItems" placeholder="Number of itmes" autocomplete="off" />
+                            </div>
+                            <div class="form-group">
+                                <label for="correct">Answered Correctly</label>
+                                <input type="text" class="form-control" id="correct" placeholder="Answered correctly" autocomplete="off" />
+                            </div>
+                            <div class="form-group">
+                                <label for="modalDate">Date</label>
+                                <input type="text" class="form-control" id="modalDate" placeholder="mm/dd/yyyy" autocomplete="off" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-save">Save New Goal</button>
+                    </div>
                 </div>
             </div>
         </div>
