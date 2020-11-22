@@ -1,9 +1,9 @@
+var dataListReference = "";
 var currentStudent = "";
 const studentsArray = [];
 var studentsGoalsArray = []
 const goalsArray = [{goal: "Yes No Questions", description: "This is a description of Yes/No questions."}, {goal: "When Questions", description: "This is a description of When questions."}, {goal: "Categories", description: "This is a description of categories."}];
-
-
+ 
 var studentGoalUpdate = function () {
     if (currentStudent === "") {
         alert("Please select a student.")
@@ -20,26 +20,26 @@ var studentGoalUpdate = function () {
         }
         var currentStudentArray = [];
         $(".goal").each(function(){
-            var newEvalArray = [];
+            var newDataArray = [];
             var goalName = $(this).children("h2").text();
             // console.log("Goal name is: " + goalName);
-            $(".goal-eval", this).each(function(){
-                var evalDate = $(this).children("p").text();
-                // console.log("EvalDate is: " + evalDate);
+            $(".goal-data", this).each(function(){
+                let sessionDate = $(this).children("p").text();
+                // console.log("sessionDate is: " + sessionDate);
                 var scoreContainerEl = $(this).children("div");
                 var scoreContainerChildren = scoreContainerEl.children();           
-                var evalScore = scoreContainerChildren[0].textContent;
-                // console.log("EvalScore is: " + evalScore);
-                var scorePercent = scoreContainerChildren[1].textContent;
+                var trialScore = scoreContainerChildren[0].textContent;
+                // console.log("trialScore is: " + trialScore);
+                let scorePercent = scoreContainerChildren[1].textContent;
                 // console.log("ScorePercent is: " + scorePercent);
-                // console.log(evalDate, evalScore, scorePercent);
-                var evalObj = {date: evalDate, score: evalScore, percent: scorePercent};
-                // console.log(evalObj);
-                newEvalArray.push(evalObj);
-                // console.log(newEvalArray);
+                // console.log(sessionDate, trialScore, scorePercent);
+                var trialObj = {date: sessionDate, score: trialScore, percent: scorePercent};
+                // console.log(trialObj);
+                newDataArray.push(trialObj);
+                // console.log(newDataArray);
             });
         
-            var goalDataObj = {goal: goalName, eval: newEvalArray}
+            var goalDataObj = {goal: goalName, data: newDataArray}
             currentStudentArray.push(goalDataObj);
             // console.log(currentStudentArray);
         });
@@ -51,7 +51,6 @@ var studentGoalUpdate = function () {
 
 // currently working here, goals print to page but they duplicate. It has something to do with the update function that is called by the addGoalToStudent function.
 var displayStudentGoals = function(currentStudent) {
-    debugger;
     $(".goal").each(function(){
         $(this).remove();
     })
@@ -63,7 +62,9 @@ var displayStudentGoals = function(currentStudent) {
             // let currentStudentGoals = studentsGoalsArray[i].goals;
             studentsGoalsArray[i].goals.forEach(function(currentGoal) {
                 addGoalToStudent(currentGoal.goal);
+                // break;
             })
+            // forEach data
             // for (let a = 0; a < currentStudentGoals; ++a) {
             //     console.log(currentStudentGoals);
                 // let currentGoal = currentStudentGoals[a].goal;
@@ -161,8 +162,11 @@ var addGoalToStudent = function (currentGoal) {
                 let goalInfoEl = $("<div>").attr("class", "p-3 bg-white mx-1 mb-1 overflow-auto");
                 let goalDescEl = $("<p>").text(goalsArray[i].description)
                 let takeDataBtn = $("<button>").attr("class", "takeDataBtn btn bg-goal mb-3");
+                takeDataBtn.attr("data-toggle", "modal");
+                takeDataBtn.attr("data-target", "#data-form-modal");
                 takeDataBtn.text("Take Data");
                 let dataListEl = $("<div>").attr("class", "dataList list-group d-flex")
+                dataListEl.attr("id", currentGoal.toLowerCase().split(" ").join("-"))
                 goalInfoEl.append(goalDescEl);
                 goalInfoEl.append(takeDataBtn);
                 goalInfoEl.append(dataListEl);
@@ -171,6 +175,7 @@ var addGoalToStudent = function (currentGoal) {
                 goalsContainerEl.append(goalDivEl);
                 $("#goal-select").val("");
                 // studentGoalUpdate();
+                
             }
         }
     }
@@ -181,4 +186,46 @@ $("#goal-select").on("change", function(){
     addGoalToStudent(currentGoal);
 });
 
-$("#goals-container").on("click", ".takeDataBtn", studentGoalUpdate);
+$("#data-form-modal").on("show.bs.modal", function() {
+    $("#modalDate, #numberOfTrials, #correct").val("");
+});
+
+$("#data-form-modal").on("shown.bs.modal", function() {
+    $("#modalDate").trigger("focus");
+});
+
+$("#data-form-modal .btn-save").on("click", function(){
+    var sessionDate = $("#modalDate").val().trim();
+    var numberOfTrials = $("#numberOfTrials").val().trim();
+    var correct = $("#correct").val().trim();
+    if (sessionDate && numberOfTrials && correct) {
+        
+       
+        let newSessionEl = $("<div>").attr("class", "goal-data list-group-item bg-goal");
+        let sessionDateHeaderEl = $("<h6>").text("Date of session:");
+        let sessionDateEl = $("<p>").attr("class", "sessionDate");
+        sessionDateEl.text(sessionDate);
+        let trialsHeaderEl = $("<h6>").text("Trials")
+        let scoreBoxEl = $("<div>").attr("class", "d-flex justify-content-between");
+        let trialScoreEl = $("<p>").text(`${correct}/${numberOfTrials}`);
+        trialScoreEl.attr("class", "score border-bottom");
+        let scorePercent = (parseInt(correct)/parseInt(numberOfTrials)) * 100;
+        let scorePercentEl = $("<p>").text(`${scorePercent}%`);
+        scorePercentEl.attr("scorePercent border-bottom");
+        scoreBoxEl.append(trialScoreEl, scorePercentEl);
+        newSessionEl.append(sessionDateHeaderEl, sessionDateEl, trialsHeaderEl, scoreBoxEl);
+        $(dataListReference).append(newSessionEl);
+        
+
+
+        $("#data-form-modal").modal("hide");
+        studentGoalUpdate();
+    }
+    else {
+        alert("Make sure all fields have been filled in.");
+    }
+});
+
+$("#goals-container").on("click", ".takeDataBtn", function() {
+    dataListReference = "#" + $(this).parent().prev().text().toLowerCase().split(" ").join("-");
+});

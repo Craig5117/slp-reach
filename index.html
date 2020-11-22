@@ -42,25 +42,29 @@
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                         <button class="takeDataBtn btn bg-goal mb-3" data-toggle="modal" data-target="#data-form-modal">Take Data</button>
                         <div class="dataList list-group d-flex">
-                            <div class="goal-eval list-group-item bg-goal">
-                                <p class="evalDate">10/15/2020</p>
+                            <div class="goal-data list-group-item bg-goal">
+                                <h6>Date of session:</h6>
+                                <p class="sessionDate">10/15/2020</p>
+                                <h6>Trials</h6>
                                 <div class="d-flex justify-content-between">
                                     <p class="score border-bottom">3/10</p> <p class="scorePercent border-bottom">30%</p>
                                 </div>
                             </div>
-                            <div class="goal-eval list-group-item bg-goal">
+                            <div class="goal-data list-group-item bg-goal">
+                                <h6>Date of session:</h6>
                                 <p>11/15/20202</p>
+                                <h6>Trials</h6>
                                 <div class="d-flex justify-content-between">
                                     <p class="border-bottom">5/10</p> <p class="border-bottom">50%</p>
                                 </div>
                             </div>
-                            <div class="goal-eval list-group-item bg-goal">
+                            <div class="goal-data list-group-item bg-goal">
                                 <p>12/15/2020</p>
                                 <div class="d-flex justify-content-between">
                                     <p class="border-bottom">6/10</p> <p class="border-bottom">60%</p>
                                 </div>
                             </div>
-                            <div class="goal-eval list-group-item bg-goal">
+                            <div class="goal-data list-group-item bg-goal">
                                 <p>1/15/2020</p>
                                 <div class="d-flex justify-content-between">
                                     <p class="border-bottom">9/10</p> <p class="border-bottom">90%</p>
@@ -75,25 +79,25 @@
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                         <button class="takeDataBtn btn bg-goal mb-3">Take Data</button>
                         <div class="list-group d-flex">
-                            <div class="goal-eval list-group-item bg-goal">
-                                <p class="evalDate">10/25/2020</p>
+                            <div class="goal-data list-group-item bg-goal">
+                                <p class="sessionDate">10/25/2020</p>
                                 <div class="d-flex justify-content-between">
                                     <p class="score border-bottom">5/10</p> <p class="scorePercent border-bottom">50%</p>
                                 </div>
                             </div>
-                            <div class="goal-eval list-group-item bg-goal">
+                            <div class="goal-data list-group-item bg-goal">
                                 <p>11/25/2020</p>
                                 <div class="d-flex justify-content-between">
                                     <p class="border-bottom">7/10</p> <p class="border-bottom">70%</p>
                                 </div>
                             </div>
-                            <div class="goal-eval list-group-item bg-goal">
+                            <div class="goal-data list-group-item bg-goal">
                                 <p>12/25/2020</p>
                                 <div class="d-flex justify-content-between">
                                     <p class="border-bottom">8/10</p> <p class="border-bottom">80%</p>
                                 </div>
                             </div>
-                            <div class="goal-eval list-group-item bg-goal">
+                            <div class="goal-data list-group-item bg-goal">
                                 <p>01/25/2020</p>
                                 <div class="d-flex justify-content-between">
                                     <p class="border-bottom">10/10</p> <p class="border-bottom">100%</p>
@@ -177,22 +181,22 @@
                     <div class="modal-body">
                         <div id="dataForm">
                             <div class="form-group">
-                                <label for="numberOfItems">Number of Items</label>
-                                <input type="text" class="form-control" id="numberOfItems" placeholder="Number of itmes" autocomplete="off" />
+                                <label for="modalDate">Date</label>
+                                <input type="text" class="form-control" id="modalDate" placeholder="mm/dd/yyyy" autocomplete="off" />
+                            </div>
+                            <div class="form-group">
+                                <label for="numberOfTrials">Number of Trials</label>
+                                <input type="text" class="form-control" id="numberOfTrials" placeholder="Number of trials" autocomplete="off" />
                             </div>
                             <div class="form-group">
                                 <label for="correct">Answered Correctly</label>
                                 <input type="text" class="form-control" id="correct" placeholder="Answered correctly" autocomplete="off" />
                             </div>
-                            <div class="form-group">
-                                <label for="modalDate">Date</label>
-                                <input type="text" class="form-control" id="modalDate" placeholder="mm/dd/yyyy" autocomplete="off" />
-                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-save">Save New Goal</button>
+                        <button type="button" class="btn btn-save">Save New Data</button>
                     </div>
                 </div>
             </div>
