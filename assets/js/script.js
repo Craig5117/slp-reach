@@ -5,6 +5,7 @@ var studentsGoalsArray = []
 const goalsArray = [{goal: "Yes No Questions", description: "This is a description of Yes/No questions."}, {goal: "When Questions", description: "This is a description of When questions."}, {goal: "Categories", description: "This is a description of categories."}];
  
 var studentGoalUpdate = function () {
+    console.log("I ran this function!")
     if (currentStudent === "") {
         alert("Please select a student.")
         return;
@@ -49,6 +50,23 @@ var studentGoalUpdate = function () {
     }
 };
 
+var addSessionDataToGoal = function(sessionDate, trialScore, scorePercent) {
+    let newSessionEl = $("<div>").attr("class", "goal-data list-group-item bg-goal");
+    let sessionDateHeaderEl = $("<h6>").text("Date of session:");
+    let sessionDateEl = $("<p>").attr("class", "sessionDate");
+    sessionDateEl.text(sessionDate);
+    let trialsHeaderEl = $("<h6>").text("Trials")
+    let scoreBoxEl = $("<div>").attr("class", "d-flex justify-content-between");
+    let trialScoreEl = $("<p>").text(trialScore);
+    trialScoreEl.attr("class", "score border-bottom");
+    
+    let scorePercentEl = $("<p>").text(`${scorePercent}%`);
+    scorePercentEl.attr("scorePercent border-bottom");
+    scoreBoxEl.append(trialScoreEl, scorePercentEl);
+    newSessionEl.append(sessionDateHeaderEl, sessionDateEl, trialsHeaderEl, scoreBoxEl);
+    $(dataListReference).append(newSessionEl);
+}
+
 // currently working here, goals print to page but they duplicate. It has something to do with the update function that is called by the addGoalToStudent function.
 var displayStudentGoals = function(currentStudent) {
     $(".goal").each(function(){
@@ -62,7 +80,11 @@ var displayStudentGoals = function(currentStudent) {
             // let currentStudentGoals = studentsGoalsArray[i].goals;
             studentsGoalsArray[i].goals.forEach(function(currentGoal) {
                 addGoalToStudent(currentGoal.goal);
-                // break;
+                dataListReference = "#" + currentGoal.goal.toLowerCase().split(" ").join("-");
+                    console.log(dataListReference);
+                currentGoal.data.forEach(function(currentData){
+                    addSessionDataToGoal(currentData.date, currentData.score, currentData.percent);                   
+                })
             })
             // forEach data
             // for (let a = 0; a < currentStudentGoals; ++a) {
@@ -194,30 +216,15 @@ $("#data-form-modal").on("shown.bs.modal", function() {
     $("#modalDate").trigger("focus");
 });
 
+
 $("#data-form-modal .btn-save").on("click", function(){
-    var sessionDate = $("#modalDate").val().trim();
-    var numberOfTrials = $("#numberOfTrials").val().trim();
-    var correct = $("#correct").val().trim();
+    let sessionDate = $("#modalDate").val().trim();
+    let numberOfTrials = $("#numberOfTrials").val().trim();
+    let correct = $("#correct").val().trim();
+    let trialScore = `${correct}/${numberOfTrials}`;
+    let scorePercent = (parseInt(correct)/parseInt(numberOfTrials)) * 100;
     if (sessionDate && numberOfTrials && correct) {
-        
-       
-        let newSessionEl = $("<div>").attr("class", "goal-data list-group-item bg-goal");
-        let sessionDateHeaderEl = $("<h6>").text("Date of session:");
-        let sessionDateEl = $("<p>").attr("class", "sessionDate");
-        sessionDateEl.text(sessionDate);
-        let trialsHeaderEl = $("<h6>").text("Trials")
-        let scoreBoxEl = $("<div>").attr("class", "d-flex justify-content-between");
-        let trialScoreEl = $("<p>").text(`${correct}/${numberOfTrials}`);
-        trialScoreEl.attr("class", "score border-bottom");
-        let scorePercent = (parseInt(correct)/parseInt(numberOfTrials)) * 100;
-        let scorePercentEl = $("<p>").text(`${scorePercent}%`);
-        scorePercentEl.attr("scorePercent border-bottom");
-        scoreBoxEl.append(trialScoreEl, scorePercentEl);
-        newSessionEl.append(sessionDateHeaderEl, sessionDateEl, trialsHeaderEl, scoreBoxEl);
-        $(dataListReference).append(newSessionEl);
-        
-
-
+        addSessionDataToGoal(sessionDate, trialScore, scorePercent);   
         $("#data-form-modal").modal("hide");
         studentGoalUpdate();
     }
