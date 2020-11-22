@@ -186,6 +186,7 @@ var addGoalToStudent = function (currentGoal) {
                 let takeDataBtn = $("<button>").attr("class", "takeDataBtn btn bg-goal mb-3");
                 takeDataBtn.attr("data-toggle", "modal");
                 takeDataBtn.attr("data-target", "#data-form-modal");
+                takeDataBtn.attr("href", "#")
                 takeDataBtn.text("Take Data");
                 let dataListEl = $("<div>").attr("class", "dataList list-group d-flex")
                 dataListEl.attr("id", currentGoal.toLowerCase().split(" ").join("-"))
