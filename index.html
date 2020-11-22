@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 <link rel="stylesheet" href="assets/css/style.css">
     <title>SLP Reach</title>
@@ -11,22 +11,18 @@
 <body>
     <header class="bg-pink">
         <h1 class="text-center text-light py-3">SLP Reach</h1>
-        <div class="row bg-pink d-flex justify-content-between py-3 px-5" id="goals-bar">
+        <div class="col-12 bg-pink d-flex justify-content-between py-3 px-5" id="goals-bar">
             <div class="d-flex flex-wrap flex-column pl-3">
-                <button class="btn bg-goal text-dark font-weight-bold" id="newStudentBtn">New Student</button>
+                <button id="newStudentBtn" class="btn bg-goal text-dark font-weight-bold" data-toggle="modal" data-target="#student-form-modal">New Student</button>
                 <select name="student-name" id="student-name">
                     <option value="" disabled selected>Student Name</option>
-                    <option value="Ashley Mcduffin">Ashley McDuffin</option>
-                    <option value="Tommy Beckett">Tommy Beckett</option>
-                    <option value="Mary Abbott">Mary Abbott</option>
                 </select>
-                
             </div>
             <div class= "d-flex flex-wrap flex-column pr-3">
-                <button class="btn bg-goal text-dark font-weight-bold" id="newGoalBtn">New Goal</button>
+                <button id="newGoalBtn" class="btn bg-goal text-dark font-weight-bold" data-toggle="modal" data-target="#goal-form-modal">New Goal</button>
                 <select name="goal-select" id="goal-select">
                     <option value="" disabled selected>Goal</option>
-                    <option value="Yes/No">Yes No Questions</option>
+                    <option value="Yes No Questions">Yes No Questions</option>
                     <option value="When">When Questions</option>
                     <option value="Categories">Categories</option>
                 </select>
@@ -38,96 +34,179 @@
         <div class="col" id="goals-wrapper">
             
             <!--Goals displayed here-->
-            <div class="col bg-light d-flex justify-content-around flex-wrap" id="goals-container">
+            <div class="col bg-light d-flex justify-content-between flex-wrap border-top-0" id="goals-container">
                 
-                    <div class="goal col-11 col-md-5 card my-3 bg-goal p-0">
-                        <h2 class="p-2">Yes/No</h2>
-                        <div class="p-3 bg-white mx-1 mb-1">
-                            <h3>Goal description:</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            <h4>Date:</h4>
-                            <p>MM/DD/YYYY</p>
-                            <h5>Score</h5>
-                            <div class="d-flex justify-content-between">
-                                <p class="border-bottom">5/10</p> <p class="border-bottom">50%</p>
+                <!-- <div class="goal col-11 col-md-5 card my-3 bg-goal p-0">
+                    <h2 class="p-2">Yes No Questions</h2>
+                    <div class="p-3 bg-white mx-1 mb-1 overflow-auto">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <button class="takeDataBtn btn bg-goal mb-3" data-toggle="modal" data-target="#data-form-modal">Take Data</button>
+                        <div class="dataList list-group d-flex">
+                            <div class="goal-data list-group-item bg-goal">
+                                <h6>Date of session:</h6>
+                                <p class="sessionDate">10/15/2020</p>
+                                <h6>Trials</h6>
+                                <div class="d-flex justify-content-between">
+                                    <p class="score border-bottom">3/10</p> <p class="scorePercent border-bottom">30%</p>
+                                </div>
                             </div>
-                        </div>
+                            <div class="goal-data list-group-item bg-goal">
+                                <h6>Date of session:</h6>
+                                <p>11/15/20202</p>
+                                <h6>Trials</h6>
+                                <div class="d-flex justify-content-between">
+                                    <p class="border-bottom">5/10</p> <p class="border-bottom">50%</p>
+                                </div>
+                            </div>
+                            <div class="goal-data list-group-item bg-goal">
+                                <p>12/15/2020</p>
+                                <div class="d-flex justify-content-between">
+                                    <p class="border-bottom">6/10</p> <p class="border-bottom">60%</p>
+                                </div>
+                            </div>
+                            <div class="goal-data list-group-item bg-goal">
+                                <p>1/15/2020</p>
+                                <div class="d-flex justify-content-between">
+                                    <p class="border-bottom">9/10</p> <p class="border-bottom">90%</p>
+                                </div>
+                            </div>
+                        </div>                            
                     </div>
-                    <div class="goal col-11 col-md-5 card my-3 bg-goal p-0">
-                        <h2 class="p-2">Yes/No</h2>
-                        <div class="p-3 bg-white mx-1 mb-1">
-                            <h3>Goal description:</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            <h4>Date:</h4>
-                            <p>MM/DD/YYYY</p>
-                            <h5>Score</h5>
-                            <div class="d-flex justify-content-between">
-                                <p class="border-bottom">5/10</p> <p class="border-bottom">50%</p>
+                </div>
+                <div class="goal col-11 col-md-5 card my-3 bg-goal p-0">
+                    <h2 class="p-2">When</h2>
+                    <div class="p-3 bg-white mx-1 mb-1 overflow-auto">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        <button class="takeDataBtn btn bg-goal mb-3">Take Data</button>
+                        <div class="list-group d-flex">
+                            <div class="goal-data list-group-item bg-goal">
+                                <p class="sessionDate">10/25/2020</p>
+                                <div class="d-flex justify-content-between">
+                                    <p class="score border-bottom">5/10</p> <p class="scorePercent border-bottom">50%</p>
+                                </div>
                             </div>
-                        </div>
+                            <div class="goal-data list-group-item bg-goal">
+                                <p>11/25/2020</p>
+                                <div class="d-flex justify-content-between">
+                                    <p class="border-bottom">7/10</p> <p class="border-bottom">70%</p>
+                                </div>
+                            </div>
+                            <div class="goal-data list-group-item bg-goal">
+                                <p>12/25/2020</p>
+                                <div class="d-flex justify-content-between">
+                                    <p class="border-bottom">8/10</p> <p class="border-bottom">80%</p>
+                                </div>
+                            </div>
+                            <div class="goal-data list-group-item bg-goal">
+                                <p>01/25/2020</p>
+                                <div class="d-flex justify-content-between">
+                                    <p class="border-bottom">10/10</p> <p class="border-bottom">100%</p>
+                                </div>
+                            </div>
+                        </div>                            
                     </div>
-                    <div class="goal col-11 col-md-5 card my-3 bg-goal p-0">
-                        <h2 class="p-2">Yes/No</h2>
-                        <div class="p-3 bg-white mx-1 mb-1">
-                            <h3>Goal description:</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            <h4>Date:</h4>
-                            <p>MM/DD/YYYY</p>
-                            <h5>Score</h5>
-                            <div class="d-flex justify-content-between">
-                                <p class="border-bottom">5/10</p> <p class="border-bottom">50%</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="goal col-11 col-md-5 card my-3 bg-goal p-0">
-                        <h2 class="p-2">Yes/No</h2>
-                        <div class="p-3 bg-white mx-1 mb-1">
-                            <h3>Goal description:</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                            <h4>Date:</h4>
-                            <p>MM/DD/YYYY</p>
-                            <h5>Score</h5>
-                            <div class="d-flex justify-content-between">
-                                <p class="border-bottom">5/10</p> <p class="border-bottom">50%</p>
-                            </div>
-                        </div>
-                    </div>                
+                </div> -->
+                 
+                    
             </div>
         </div>
-        <!-- Modal -->
-  <div class="modal fade" id="goal-form-modal" tabindex="-1" role="dialog" aria-labelledby="goal-form-modal"
-  aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="goal-form-modal">New Goal</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="modalGoalDescription">Goal description</label>
-            <textarea id="modalGoalDescription" rows="3" class="form-control"></textarea>
-          </div>
-          <div class="form-group">
-            <label for="modalDate">Date</label>
-            <input type="text" class="form-control" id="modalDate" placeholder="mm/dd/yyyy" autocomplete="off" />
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-save">Save Task</button>
-      </div>
-    </div>
-  </div>
-</div>
+        <!-- Modal Student-->
+        <div class="modal fade" id="student-form-modal" tabindex="-1" role="dialog" aria-labelledby="student-form-modal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="student-form-modal">New Student</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="studentForm">
+                            <div class="form-group">
+                                <label for="nameEntry">Student Name</label>
+                                <input type="text" class="form-control" id="nameEntry" placeholder="New Student Name" autocomplete="off" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-save">Save New Student</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Goal -->
+        <div class="modal fade" id="goal-form-modal" tabindex="-1" role="dialog" aria-labelledby="goal-form-modal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="goal-form-modal">New Goal</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="goalForm">
+                            <div class="form-group">
+                                <label for="modalGoalTitle">Goal</label>
+                                <input type="text" class="form-control" id="modalGoalTitle" placeholder="Goal Name" autocomplete="off" />
+                            </div>
+                            <div class="form-group">
+                                <label for="modalGoalDescription">Goal description</label>
+                                <textarea id="modalGoalDescription" rows="3" class="form-control"></textarea>
+                            </div>
+                            <!-- <div class="form-group">
+                                <label for="modalDate">Date</label>
+                                <input type="text" class="form-control" id="modalDate" placeholder="mm/dd/yyyy" autocomplete="off" />
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-save">Save New Goal</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Take Data-->
+        <div class="modal fade" id="data-form-modal" tabindex="-1" role="dialog" aria-labelledby="data-form-modal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="data-form-modal">New Data</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="dataForm">
+                            <div class="form-group">
+                                <label for="modalDate">Date</label>
+                                <input type="text" class="form-control" id="modalDate" placeholder="mm/dd/yyyy" autocomplete="off" />
+                            </div>
+                            <div class="form-group">
+                                <label for="numberOfTrials">Number of Trials</label>
+                                <input type="text" class="form-control" id="numberOfTrials" placeholder="Number of trials" autocomplete="off" />
+                            </div>
+                            <div class="form-group">
+                                <label for="correct">Answered Correctly</label>
+                                <input type="text" class="form-control" id="correct" placeholder="Answered correctly" autocomplete="off" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-close" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-save">Save New Data</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="assets/js/script.js"></script>
 </body>
 </html>
