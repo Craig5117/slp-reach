@@ -230,7 +230,7 @@ $("#goal-form-modal .btn-save").on("click", function(){
     }
 });
 
-var addGoalToStudent = function (currentGoal) {
+const addGoalToStudent = function (currentGoal) {
     let goalsCheckArr = [];
     if (currentStudent === "") {
         $("#goal-select").val("");
