@@ -63,7 +63,7 @@ const updateGoalsData = function () {
     );
 };
 
-var studentGoalUpdate = function () {
+const studentGoalUpdate = function () {
     console.log("I ran this function!")
     if (currentStudent === "") {
         alert("Please select a student.")
@@ -78,28 +78,28 @@ var studentGoalUpdate = function () {
                 console.log("No")
             }
         }
-        var currentStudentArray = [];
+        let currentStudentArray = [];
         $(".goal").each(function(){
-            var newDataArray = [];
-            var goalName = $(this).children("h2").text();
+            let newDataArray = [];
+            let goalName = $(this).children("h2").text();
             // console.log("Goal name is: " + goalName);
             $(".goal-data", this).each(function(){
                 let sessionDate = $(this).children("p").text();
                 // console.log("sessionDate is: " + sessionDate);
-                var scoreContainerEl = $(this).children("div");
-                var scoreContainerChildren = scoreContainerEl.children();           
-                var trialScore = scoreContainerChildren[0].textContent;
+                let scoreContainerEl = $(this).children("div");
+                let scoreContainerChildren = scoreContainerEl.children();           
+                let trialScore = scoreContainerChildren[0].textContent;
                 // console.log("trialScore is: " + trialScore);
                 let scorePercent = scoreContainerChildren[1].textContent;
                 // console.log("ScorePercent is: " + scorePercent);
                 // console.log(sessionDate, trialScore, scorePercent);
-                var trialObj = {date: sessionDate, score: trialScore, percent: scorePercent};
+                let trialObj = {date: sessionDate, score: trialScore, percent: scorePercent};
                 // console.log(trialObj);
                 newDataArray.push(trialObj);
                 // console.log(newDataArray);
             });
         
-            var goalDataObj = {goal: goalName, data: newDataArray}
+            let goalDataObj = {goal: goalName, data: newDataArray}
             currentStudentArray.push(goalDataObj);
             // console.log(currentStudentArray);
         });
@@ -110,7 +110,7 @@ var studentGoalUpdate = function () {
     }
 };
 
-var addSessionDataToGoal = function(sessionDate, trialScore, scorePercent) {
+const addSessionDataToGoal = function(sessionDate, trialScore, scorePercent) {
     let newSessionEl = $("<div>").attr("class", "goal-data list-group-item bg-goal");
     let sessionDateHeaderEl = $("<h6>").text("Date of session:");
     let sessionDateEl = $("<p>").attr("class", "sessionDate");
@@ -129,7 +129,7 @@ var addSessionDataToGoal = function(sessionDate, trialScore, scorePercent) {
 
 // currently working here, goals print to page but they duplicate. It has something to do with the update function that is called by the addGoalToStudent function.
 // I think I solved this. Nope not yet. Just disabled the update at goal add which is not a permanent solution.
-var displayStudentGoals = function(currentStudent) {
+const displayStudentGoals = function(currentStudent) {
     $(".goal").each(function(){
         $(this).remove();
     })
@@ -175,7 +175,7 @@ $("#student-form-modal .btn-save").on("click", function(){
             return;
         }
         else {
-        var studentOptionEl = $("<option>").attr("value", studentName);
+        let studentOptionEl = $("<option>").attr("value", studentName);
         studentOptionEl.text(studentName);
         studentsArray.push(studentName);
         $("#student-name").append(studentOptionEl);
@@ -218,7 +218,7 @@ $("#goal-form-modal .btn-save").on("click", function(){
             }
             goalsArray.push(newGoal);
             // console.log(goalsArray);
-            var goalOptionEl = $("<option>").attr("value", goalName);
+            let goalOptionEl = $("<option>").attr("value", goalName);
             goalOptionEl.text(goalName);
             $("#goal-select").append(goalOptionEl);
             updateGoalsData();
