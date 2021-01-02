@@ -1,4 +1,8 @@
 # SLP Reach
+
+![Screenshot of SLP Reach Student Goals Display](./screenshots/screenshot-1.png)
+![Screenshot of SLP Reach Take Data Form](./screenshots/screenshot-2.png)
+
 ## Description 
 
 A tool for speech language pathologists to track their students' speech goal progress.
