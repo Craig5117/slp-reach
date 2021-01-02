@@ -300,7 +300,8 @@ $("#data-form-modal .btn-save").on("click", function(){
     let numberOfTrials = $("#numberOfTrials").val().trim();
     let correct = $("#correct").val().trim();
     let trialScore = `${correct}/${numberOfTrials}`;
-    let scorePercent = (parseInt(correct)/parseInt(numberOfTrials)) * 100 + "%";
+    let scorePercent = (parseInt(correct)/parseInt(numberOfTrials)) * 100;
+    scorePercent = scorePercent.toFixed(2) + "%";
     if (sessionDate && numberOfTrials && correct) {
         addSessionDataToGoal(sessionDate, trialScore, scorePercent);   
         $("#data-form-modal").modal("hide");
