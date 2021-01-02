@@ -1,9 +1,68 @@
-var dataListReference = "";
-var currentStudent = "";
-const studentsArray = [];
-var studentsGoalsArray = []
-const goalsArray = [{goal: "Yes No Questions", description: "This is a description of Yes/No questions."}, {goal: "When Questions", description: "This is a description of When questions."}, {goal: "Categories", description: "This is a description of categories."}];
- 
+let dataListReference = "";
+let currentStudent = "";
+let studentsArray = [];
+let studentsGoalsArray = []
+let goalsArray = [];
+
+const loadStudentsData = function () {
+    studentsGoalsArray = localStorage.getItem("myStudentsData");
+    studentsGoalsArray = JSON.parse(studentsGoalsArray);
+    if (!studentsGoalsArray) {
+        return studentsGoalsArray = [];
+    }
+}
+
+const loadStudentsList = function () {
+    studentsArray = localStorage.getItem("myStudents");
+    studentsArray = JSON.parse(studentsArray);
+    if (!studentsArray) {
+        studentsArray = [];
+    }
+    else {
+        for (let i = 0; i < studentsArray.length; ++i) {
+            let studentOptionEl = $("<option>").attr("value", studentsArray[i]);
+            studentOptionEl.text(studentsArray[i]);
+            $("#student-name").append(studentOptionEl);
+        }
+    }
+};
+
+const loadGoalsData = function () {
+    goalsArray = localStorage.getItem("mySLPReachGoals");
+    goalsArray = JSON.parse(goalsArray);
+    if (!goalsArray) {
+       return goalsArray = [{goal: "Yes No Questions", description: "This is a description of Yes/No questions."}, {goal: "When Questions", description: "This is a description of When questions."}, {goal: "Categories", description: "This is a description of categories."}];
+    }
+    else {
+        for (let i = 0; i < goalsArray.length; ++i) {
+            let goalOptionEl = $("<option>").attr("value", goalsArray[i].goal);
+            goalOptionEl.text(goalsArray[i].goal);
+            $("#goal-select").append(goalOptionEl);
+        }
+    }
+};    
+
+const updateStudentData = function () {
+    localStorage.setItem(
+        "myStudentsData",
+        JSON.stringify(studentsGoalsArray)
+    );
+};
+
+const updateStudentList = function (){
+    localStorage.setItem(
+        "myStudents",
+        JSON.stringify(studentsArray)
+    )
+};
+
+const updateGoalsData = function () {
+    localStorage.setItem(
+        "mySLPReachGoals",
+        JSON.stringify(goalsArray)
+    );
+};
+
 var studentGoalUpdate = function () {
     console.log("I ran this function!")
     if (currentStudent === "") {
@@ -47,6 +106,7 @@ var studentGoalUpdate = function () {
         studUpdateArrayData = {student: currentStudent, goals: currentStudentArray}
         studentsGoalsArray.push(studUpdateArrayData);
         console.log(studentsGoalsArray);
+        updateStudentData();
     }
 };
 
@@ -117,8 +177,9 @@ $("#student-form-modal .btn-save").on("click", function(){
         else {
         var studentOptionEl = $("<option>").attr("value", studentName);
         studentOptionEl.text(studentName);
-        studentsArray.push(studentName)
+        studentsArray.push(studentName);
         $("#student-name").append(studentOptionEl);
+        updateStudentList();
         $("#student-form-modal").modal("hide");
         }
     }
@@ -156,10 +217,11 @@ $("#goal-form-modal .btn-save").on("click", function(){
                 goal: goalName, description: goalDesc
             }
             goalsArray.push(newGoal);
-            console.log(goalsArray);
+            // console.log(goalsArray);
             var goalOptionEl = $("<option>").attr("value", goalName);
             goalOptionEl.text(goalName);
             $("#goal-select").append(goalOptionEl);
+            updateGoalsData();
             $("#goal-form-modal").modal("hide");
         }
     }
@@ -169,7 +231,6 @@ $("#goal-form-modal .btn-save").on("click", function(){
 });
 
 var addGoalToStudent = function (currentGoal) {
-    let repeatedGoal = true;
     let goalsCheckArr = [];
     if (currentStudent === "") {
         $("#goal-select").val("");
@@ -253,3 +314,7 @@ $("#data-form-modal .btn-save").on("click", function(){
 $("#goals-container").on("click", ".takeDataBtn", function() {
     dataListReference = "#" + $(this).parent().prev().text().toLowerCase().split(" ").join("-");
 });
+
+loadStudentsData();
+loadStudentsList();
+loadGoalsData();
