@@ -36,26 +36,14 @@ const loadGoalsData = function () {
   goalsArray = localStorage.getItem("mySLPReachGoals");
   goalsArray = JSON.parse(goalsArray);
   if (!goalsArray) {
-    return (goalsArray = [
-      {
-        goal: "Yes No Questions",
-        description: "This is a description of Yes/No questions.",
-      },
-      {
-        goal: "When Questions",
-        description: "This is a description of When questions.",
-      },
-      {
-        goal: "Categories",
-        description: "This is a description of categories.",
-      },
-    ]);
+    return goalsArray = [{ goal: "Yes No Questions", description: "This is a description of Yes/No questions." }, { goal: "When Questions", description: "This is a description of When questions." }, { goal: "Categories", description: "This is a description of categories." }];
   } else {
     for (let i = 0; i < goalsArray.length; ++i) {
       let goalOptionEl = $("<option>").attr("value", goalsArray[i].goal);
       goalOptionEl.text(goalsArray[i].goal);
       $("#goal-select").append(goalOptionEl);
     }
+    updateGoalsData();
   }
 };
 
