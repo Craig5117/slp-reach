@@ -128,7 +128,7 @@ var addSessionDataToGoal = function(sessionDate, trialScore, scorePercent) {
 }
 
 // currently working here, goals print to page but they duplicate. It has something to do with the update function that is called by the addGoalToStudent function.
-// I think I solved this
+// I think I solved this. Nope not yet. Just disabled the update at goal add which is not a permanent solution.
 var displayStudentGoals = function(currentStudent) {
     $(".goal").each(function(){
         $(this).remove();
@@ -243,47 +243,55 @@ var addGoalToStudent = function (currentGoal) {
             goalsCheckArr.push(this.firstChild.textContent)
         });
         console.log(goalsCheckArr);
-        if (goalsCheckArr.includes($('#goal-select').val())){
-            $("#goal-select").val("");
-            alert("This student already has that goal.")
-            return;
-        }
-        else {
-            for (let i = 0; i < goalsArray.length; ++i) {
-                if (goalsArray[i].goal === currentGoal) {
-                    const goalsContainerEl = $("#goals-container");
-                    let goalDivEl = $("<div>").attr("class", "goal col-11 col-md-5 card my-3 bg-goal p-0");
-                    let goalTitleEl = $("<h2>").attr("class", "p-2");
-                    goalTitleEl.text(goalsArray[i].goal);
-                    let goalInfoEl = $("<div>").attr("class", "p-3 bg-white mx-1 mb-1 overflow-auto");
-                    let goalDescEl = $("<p>").text(goalsArray[i].description)
-                    let takeDataBtn = $("<button>").attr("class", "takeDataBtn btn bg-goal mb-3");
-                    takeDataBtn.attr("data-toggle", "modal");
-                    takeDataBtn.attr("data-target", "#data-form-modal");
-                    takeDataBtn.attr("href", "#")
-                    takeDataBtn.text("Take Data");
-                    let dataListEl = $("<div>").attr("class", "dataList list-group d-flex")
-                    dataListEl.attr("id", currentGoal.toLowerCase().split(" ").join("-"))
-                    goalInfoEl.append(goalDescEl);
-                    goalInfoEl.append(takeDataBtn);
-                    goalInfoEl.append(dataListEl);
-                    goalDivEl.append(goalTitleEl);
-                    goalDivEl.append(goalInfoEl);
-                    goalsContainerEl.append(goalDivEl);
-                    $("#goal-select").val("");
-                    // studentGoalUpdate();
-                    
-                }
+        return new Promise (function(resolve, reject) {
+            if (goalsCheckArr.includes($('#goal-select').val())){
+                $("#goal-select").val("");
+                
+                reject("This student already has that goal.");
             }
-        }
+            else {
+                for (let i = 0; i < goalsArray.length; ++i) {
+                    if (goalsArray[i].goal === currentGoal) {
+                        const goalsContainerEl = $("#goals-container");
+                        let goalDivEl = $("<div>").attr("class", "goal col-11 col-md-5 card my-3 bg-goal p-0");
+                        let goalTitleEl = $("<h2>").attr("class", "p-2");
+                        goalTitleEl.text(goalsArray[i].goal);
+                        let goalInfoEl = $("<div>").attr("class", "p-3 bg-white mx-1 mb-1 overflow-auto");
+                        let goalDescEl = $("<p>").text(goalsArray[i].description)
+                        let takeDataBtn = $("<button>").attr("class", "takeDataBtn btn bg-goal mb-3");
+                        takeDataBtn.attr("data-toggle", "modal");
+                        takeDataBtn.attr("data-target", "#data-form-modal");
+                        takeDataBtn.attr("href", "#")
+                        takeDataBtn.text("Take Data");
+                        let dataListEl = $("<div>").attr("class", "dataList list-group d-flex")
+                        dataListEl.attr("id", currentGoal.toLowerCase().split(" ").join("-"))
+                        goalInfoEl.append(goalDescEl);
+                        goalInfoEl.append(takeDataBtn);
+                        goalInfoEl.append(dataListEl);
+                        goalDivEl.append(goalTitleEl);
+                        goalDivEl.append(goalInfoEl);
+                        goalsContainerEl.append(goalDivEl);
+                        $("#goal-select").val("");
+                        console.log("Goal Added!")
+                    }
+                }
+            } resolve();
+        });
     }
+    // return new Promise
 }
 
 $("#goal-select").on("change", function(){
     let currentGoal = $("#goal-select option:selected").text();
-    addGoalToStudent(currentGoal);
-    // try adding a .then(studentGoalUpdate)
-    // when you come back to this, try using array.filter to stop the duplicate page items.
+    addGoalToStudent(currentGoal)
+        .then(function(){studentGoalUpdate();})
+        .catch(err => {
+            console.log(err);
+            alert(err);
+        });
+    // setTimeout(function() {
+    //         studentGoalUpdate();
+    //         }, 1000);
 });
 
 $("#data-form-modal").on("show.bs.modal", function() {
