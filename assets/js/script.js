@@ -95,7 +95,7 @@ const studentGoalUpdate = function () {
       let newDataArray = [];
       // gets the goal name from the DOM
       let goalName = $(this).children("h2").text();
-      // Loops over each recorded take-data and executes the following function
+      // Loops over each recorded trial and executes the following function
       $(".goal-data", this).each(function () {
           // gets the date from the element in the DOM
         let sessionDate = $(this).children("p").text();
@@ -133,7 +133,7 @@ const studentGoalUpdate = function () {
   }
 };
 
-// Adds take-data data to the student's goal
+// Adds trial data to the student's goal
 const addSessionDataToGoal = function (sessionDate, trialScore, scorePercent) {
     // creates the new element that will be added to the page on the goal
   let newSessionEl = $("<div>").attr(
@@ -146,14 +146,19 @@ const addSessionDataToGoal = function (sessionDate, trialScore, scorePercent) {
   let sessionDateEl = $("<p>").attr("class", "sessionDate");
   // gets the text for the sessionDate element from passed in parameter
   sessionDateEl.text(sessionDate);
+  // sets the header for the trial score correct/total and percentage
   let trialsHeaderEl = $("<h6>").text("Trials");
+  // a container for the score and the percentage so they can be managed as flex items
   let scoreBoxEl = $("<div>").attr("class", "d-flex justify-content-between");
+  // Sets the text of the score
   let trialScoreEl = $("<p>").text(trialScore);
   trialScoreEl.attr("class", "score border-bottom");
-
+    // sets the text of the percent element
   let scorePercentEl = $("<p>").text(scorePercent);
   scorePercentEl.attr("scorePercent border-bottom");
+  // appends the score and percent elements to the flex container 
   scoreBoxEl.append(trialScoreEl, scorePercentEl);
+  // appends all of the elements to the parent div that will be added to the page
   newSessionEl.append(
     sessionDateHeaderEl,
     sessionDateEl,
@@ -167,18 +172,22 @@ const addSessionDataToGoal = function (sessionDate, trialScore, scorePercent) {
   $(dataListReference).append(newSessionEl);
 };
 
+// Handles the display of Student info in the DOM
 const displayStudentGoals = function (currentStudent) {
+    // removes any .goal elements currently on the page
   $(".goal").each(function () {
     $(this).remove();
   });
-  console.log(studentsGoalsArray);
+  // loops over the studentsGoalsArray to find a match with the current selected student
+  // if the match is found, for each goal found in the array for that student, it runs the addGoalToStudent function to add the data to the page
+  // sets data list reference to be used in addSessionDataToGoal function
   for (let i = 0; i < studentsGoalsArray.length; ++i) {
     if (studentsGoalsArray[i].student === currentStudent) {
       studentsGoalsArray[i].goals.forEach(function (currentGoal) {
         addGoalToStudent(currentGoal.goal);
         dataListReference =
           "#" + currentGoal.goal.toLowerCase().split(" ").join("-");
-        console.log(dataListReference);
+        // for each goal in the array, it runs forEach to loop over the trials sessionData for that student's goal and run addSessionDataToGoal on each one 
         currentGoal.data.forEach(function (currentData) {
           addSessionDataToGoal(
             currentData.date,
@@ -191,14 +200,16 @@ const displayStudentGoals = function (currentStudent) {
   }
 };
 
+// the following three functions handle the display, clean up, and data collection from the student-form-modal
+// On display, nameEntry is cleared
 $("#student-form-modal").on("show.bs.modal", function () {
   $("#nameEntry").val("");
 });
-
+// Once it is displayed, it triggers the focus on the nameEntry field
 $("#student-form-modal").on("shown.bs.modal", function () {
   $("#nameEntry").trigger("focus");
 });
-
+// Handles form submission throught the save button click and hides the modal
 $("#student-form-modal .btn-save").on("click", function () {
   let studentName = $("#nameEntry").val().trim();
   if (studentName) {
@@ -216,23 +227,25 @@ $("#student-form-modal .btn-save").on("click", function () {
   } else {
     alert("Please enter a name.");
   }
-  // Save name to array code here
 });
 
+// Listens for change to the Student select drop down and runs displayStudentGoals for the selected student
 $("#student-name").on("change", function () {
   currentStudent = $("#student-name option:selected").text();
-  console.log(currentStudent);
   displayStudentGoals(currentStudent);
 });
 
+// the following three functions handle the display, clean up, and data collection from the goal-form-modal
+// on display, it clears the values of the Goal Title and Goal Description
 $("#goal-form-modal").on("show.bs.modal", function () {
   $("#modalGoalTitle, #modalGoalDescription").val("");
 });
-
+// Once it is displayed, it triggers focus on the Goal Title field
 $("#goal-form-modal").on("shown.bs.modal", function () {
   $("#modalGoalTitle").trigger("focus");
 });
-
+// When the save button is clicked, it collects the data from the fields and compares with the goals array to see if this new goal is a repetition
+// If it isn't repeated, it adds the new goal to the array and appends it as an option to the goal select drop down
 $("#goal-form-modal .btn-save").on("click", function () {
   let goalName = $("#modalGoalTitle").val().trim();
   let goalDesc = $("#modalGoalDescription").val().trim();
@@ -258,6 +271,9 @@ $("#goal-form-modal .btn-save").on("click", function () {
   }
 });
 
+// This function handles the addition of new goals to the current selected student
+// It was converted to return a promise in order to control the order of execution with the studentGoalUpdate function
+// Otherwise bugs occur such as running the update function before this function is finished, or running the update function too many times
 const addGoalToStudent = function (currentGoal) {
   let goalsCheckArr = [];
   if (currentStudent === "") {
@@ -265,7 +281,7 @@ const addGoalToStudent = function (currentGoal) {
     alert("Please select a student.");
     return;
   } else {
-    // error handling for goal already on page will go here (use forEach to check the divs on the page for the goal name)
+    // For each .goal it creates an array to compare the goal title to the goal selection. If it is a duplicate, it won't add the goal.
     $(".goal").each(function () {
       goalsCheckArr.push(this.firstChild.textContent);
     });
@@ -276,6 +292,7 @@ const addGoalToStudent = function (currentGoal) {
 
         reject("This student already has that goal.");
       } else {
+          // assuming it wasn't rejected as a duplicate, it loops over the goals array to find a match with the goal selection, then it adds the match to the page
         for (let i = 0; i < goalsArray.length; ++i) {
           if (goalsArray[i].goal === currentGoal) {
             const goalsContainerEl = $("#goals-container");
@@ -322,6 +339,8 @@ const addGoalToStudent = function (currentGoal) {
   }
 };
 
+// listens for a change to the goal select drop down. On change it takes the value of the selection and runs it as parameter for addGoalToStudent
+// then it runs studentGoalUpdate only after addGoalToStudent has resolved
 $("#goal-select").on("change", function () {
   let currentGoal = $("#goal-select option:selected").text();
   addGoalToStudent(currentGoal)
@@ -334,14 +353,19 @@ $("#goal-select").on("change", function () {
     });
 });
 
+// The following three function handle the display, clean up, and data collection from the data-form-modal (trial session data)
+// On display the values of the Date, Trials, and Correct fields are cleared
 $("#data-form-modal").on("show.bs.modal", function () {
   $("#modalDate, #numberOfTrials, #correct").val("");
 });
 
+// Once it is displayed, it triggers focus on the Date field
 $("#data-form-modal").on("shown.bs.modal", function () {
   $("#modalDate").trigger("focus");
 });
 
+// When the save button is clicked, it gathers the values of the fields and runs as parameters for addSessionDataToGoal
+// Then it hides the modal and runs studentGoalUpdate
 $("#data-form-modal .btn-save").on("click", function () {
   let sessionDate = $("#modalDate").val().trim();
   let numberOfTrials = $("#numberOfTrials").val().trim();
@@ -367,6 +391,7 @@ $("#goals-container").on("click", ".takeDataBtn", function () {
     "#" + $(this).parent().prev().text().toLowerCase().split(" ").join("-");
 });
 
+// loads the stored data from local storage
 loadStudentsData();
 loadStudentsList();
 loadGoalsData();
