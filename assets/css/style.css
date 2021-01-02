@@ -4,6 +4,9 @@
 
 }
 
+.clickable {
+    cursor: pointer;
+}
 
 .bg-pink {
     background-color: var(--secondary-color);
