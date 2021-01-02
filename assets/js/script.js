@@ -82,22 +82,22 @@ const studentGoalUpdate = function () {
     return;
   } else {
     for (let i = 0; i < studentsGoalsArray.length; ++i) {
-        // This deletes the current student's stored data so it can be replaced with the new data
+      // This deletes the current student's stored data so it can be replaced with the new data
       if (studentsGoalsArray[i].student.includes(currentStudent)) {
         studentsGoalsArray.splice(i, 1);
-      } 
+      }
     }
     // initializes an array to collect current student data
     let currentStudentArray = [];
     // for each goal on this student's display, it executes the following function
     $(".goal").each(function () {
-        // initiates an array to collect new data
+      // initiates an array to collect new data
       let newDataArray = [];
       // gets the goal name from the DOM
       let goalName = $(this).children("h2").text();
       // Loops over each recorded trial and executes the following function
       $(".goal-data", this).each(function () {
-          // gets the date from the element in the DOM
+        // gets the date from the element in the DOM
         let sessionDate = $(this).children("p").text();
         // gets the Score container so the children can be sorted and used
         let scoreContainerEl = $(this).children("div");
@@ -135,7 +135,7 @@ const studentGoalUpdate = function () {
 
 // Adds trial data to the student's goal
 const addSessionDataToGoal = function (sessionDate, trialScore, scorePercent) {
-    // creates the new element that will be added to the page on the goal
+  // creates the new element that will be added to the page on the goal
   let newSessionEl = $("<div>").attr(
     "class",
     "goal-data list-group-item bg-goal"
@@ -153,10 +153,10 @@ const addSessionDataToGoal = function (sessionDate, trialScore, scorePercent) {
   // Sets the text of the score
   let trialScoreEl = $("<p>").text(trialScore);
   trialScoreEl.attr("class", "score border-bottom");
-    // sets the text of the percent element
+  // sets the text of the percent element
   let scorePercentEl = $("<p>").text(scorePercent);
   scorePercentEl.attr("scorePercent border-bottom");
-  // appends the score and percent elements to the flex container 
+  // appends the score and percent elements to the flex container
   scoreBoxEl.append(trialScoreEl, scorePercentEl);
   // appends all of the elements to the parent div that will be added to the page
   newSessionEl.append(
@@ -174,7 +174,7 @@ const addSessionDataToGoal = function (sessionDate, trialScore, scorePercent) {
 
 // Handles the display of Student info in the DOM
 const displayStudentGoals = function (currentStudent) {
-    // removes any .goal elements currently on the page
+  // removes any .goal elements currently on the page
   $(".goal").each(function () {
     $(this).remove();
   });
@@ -187,7 +187,7 @@ const displayStudentGoals = function (currentStudent) {
         addGoalToStudent(currentGoal.goal);
         dataListReference =
           "#" + currentGoal.goal.toLowerCase().split(" ").join("-");
-        // for each goal in the array, it runs forEach to loop over the trials sessionData for that student's goal and run addSessionDataToGoal on each one 
+        // for each goal in the array, it runs forEach to loop over the trials sessionData for that student's goal and run addSessionDataToGoal on each one
         currentGoal.data.forEach(function (currentData) {
           addSessionDataToGoal(
             currentData.date,
@@ -292,7 +292,7 @@ const addGoalToStudent = function (currentGoal) {
 
         reject("This student already has that goal.");
       } else {
-          // assuming it wasn't rejected as a duplicate, it loops over the goals array to find a match with the goal selection, then it adds the match to the page
+        // assuming it wasn't rejected as a duplicate, it loops over the goals array to find a match with the goal selection, then it adds the match to the page
         for (let i = 0; i < goalsArray.length; ++i) {
           if (goalsArray[i].goal === currentGoal) {
             const goalsContainerEl = $("#goals-container");
@@ -382,7 +382,7 @@ $("#data-form-modal .btn-save").on("click", function () {
   }
 });
 
-// when a take data button is clicked within the goals-container, 
+// when a take data button is clicked within the goals-container,
 // it looks for the parent element and then goes to the parent elements sibling which will be the h2 containing the goal name
 // the goal name is then converted to lowercase, split, and joined with - to reflect the format of the id
 // # is added to complete the id format
